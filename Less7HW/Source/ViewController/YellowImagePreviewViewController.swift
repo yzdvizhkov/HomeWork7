@@ -24,6 +24,7 @@ class YellowImagePreviewViewController: UIViewController {
     func setupInitialState() {
         let dataProvider = DataProvider()
         imageUrls = dataProvider.loadImageUrls()
+        imageDownloader.delegate = self
     }
     
     @IBAction func nextButtonAction(_ sender: UIButton) {
@@ -55,6 +56,14 @@ extension YellowImagePreviewViewController {
         imageIndex -= 1
         if imageIndex < 0 {
             imageIndex = imageUrls.count - 1
+        }
+    }
+}
+
+extension YellowImagePreviewViewController: ImageDownloadedProtocol {
+    func imageDidLoad(data: Data?, error: Error?) {
+        if data != nil {
+            imageView.image = UIImage(data: data!)
         }
     }
 }

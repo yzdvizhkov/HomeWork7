@@ -7,7 +7,12 @@
 
 import Foundation
 
+protocol ImageDownloadedProtocol: AnyObject {
+    func imageDidLoad(data: Data?, error: Error?)
+}
+
 class ImageDownloaderBasedOnProtocol {
+    weak var delegate: ImageDownloadedProtocol!
     
     func downloadImageData(for urlString: String) {
         /*
@@ -44,6 +49,7 @@ class ImageDownloaderBasedOnProtocol {
              */
             DispatchQueue.main.async {
                 // тут потрібно передати результат imageData у ImagePreviewViewController
+                self.delegate.imageDidLoad(data: imageData, error: downloadError)
             }
         }
     }

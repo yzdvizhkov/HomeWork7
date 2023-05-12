@@ -41,7 +41,11 @@ extension GreenImagePreviewViewController {
     
     func loadImageForCurrentIndex() {
         let urlString = imageUrls[imageIndex]
-        imageDownloader.downloadImageData(for: urlString)
+        imageDownloader.downloadImageData(for: urlString) { data, error in
+        if data != nil {
+            self.imageView.image = UIImage(data: data!)
+            }
+        }
     }
     
     func increaseImageIndex() {

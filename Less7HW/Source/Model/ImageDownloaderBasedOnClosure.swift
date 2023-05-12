@@ -9,7 +9,7 @@ import Foundation
 
 class ImageDownloaderBasedOnClosure {
     
-    func downloadImageData(for urlString: String) {
+    func downloadImageData(for urlString: String, String closure: @escaping (Data?, Error?) -> ()) {
         /*
          Нижче строка коду
             DispatchQueue.global(qos: .default).async {...}
@@ -44,6 +44,7 @@ class ImageDownloaderBasedOnClosure {
              */
             DispatchQueue.main.async {
                 // тут потрібно передати результат imageData у ImagePreviewViewController
+                closure(imageData, downloadError)
             }
         }
     }
